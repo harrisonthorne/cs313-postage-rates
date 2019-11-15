@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    -
+    div.container
+        div.box
+            h2 Mail rates
+            form(action="/rate", method="GET") 
+                table
+                    tr
+                        td
+                            b Mail type
+                        td
+                            select(id="type", name="mailType")
+                                option(value="0", selected=(mailType==0)) Stamped letter
+                                option(value="1", selected=(mailType==1)) Metered letter
+                                option(value="2", selected=(mailType==2)) Large envelope
+                                option(value="3", selected=(mailType==3)) First Class Package Service (Retail)
+                    tr
+                        td
+                            b Weight
+                        td
+                            input.small(type="number", id="oz", name="oz", value=oz)
+                            | oz
+                .actions
+                    button(type="submit") Calculate rate
+            if error != undefined && error != null
+                p.error= error
+            else if rate != undefined && rate != null
+                p Your rate is 
+                    span= rate
+                    | .
